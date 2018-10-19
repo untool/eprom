@@ -6,7 +6,6 @@ script:
   - commitlint-travis
   - yarn lint
   - yarn test
-  - yarn spec
 
 node_js:
   - '6'

@@ -4,8 +4,7 @@
   "description": "JavaScript Async Primitive",
   "main": "index.js",
   "scripts": {
-    "test": "ava --verbose",
-    "spec": "promises-aplus-tests index",
+    "test": "mocha",
     "lint": "eslint --ignore-path .gitignore '**/*.js'",
     "fmt": "prettier --write --ignore-path .gitignore '**/*.js'",
     "release": "standard-version",
@@ -30,7 +29,6 @@
     "@commitlint/cli": "^7.0.0",
     "@commitlint/config-conventional": "^7.0.0",
     "@commitlint/travis-cli": "^7.0.0",
-    "ava": "^0.25.0",
     "cz-conventional-changelog": "^2.1.0",
     "eslint": "^5.0.0",
     "eslint-config-prettier": "^3.0.0",
@@ -106,5 +104,8 @@
       "commit-msg": "commitlint -e $GIT_PARAMS",
       "pre-commit": "lint-staged"
     }
+  },
+  "dependencies": {
+    "mocha": "^5.2.0"
   }
 }

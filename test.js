@@ -1,32 +1,33 @@
-var test = require('ava');
+/* eslint-env node, mocha */
+var assert = require('assert');
 
-var Eprom = require('./index');
+var Eprom = require('.');
 
-test('exports test', function(t) {
-  t.is(typeof Eprom, 'function', 'Eprom is a function');
+describe('Promises/A+ Spec Compliance', function() {
+  require('promises-aplus-tests').mocha(Eprom);
 });
 
-test('resolve test', function(t) {
-  var eprom = new Eprom();
-  eprom.resolve('foo');
-  return eprom.then(function(value) {
-    t.is(value, 'foo', 'external resolving works');
+describe('Eprom Promise Enhancements', function() {
+  it('should be externally resolvable', function() {
+    var eprom = new Eprom();
+    eprom.resolve('foo');
+    return eprom.then(function(value) {
+      assert.equal(value, 'foo');
+    });
   });
-});
-
-test('reject test', function(t) {
-  var eprom = new Eprom();
-  eprom.reject('foo');
-  return eprom.catch(function(value) {
-    t.is(value, 'foo', 'external rejecting works');
+  it('should be externally rejectable', function() {
+    var eprom = new Eprom();
+    eprom.reject('foo');
+    return eprom.catch(function(value) {
+      assert.equal(value, 'foo');
+    });
   });
-});
-
-test('reset test', function(t) {
-  var eprom = Eprom.resolve('foo');
-  eprom.reset();
-  eprom.resolve('bar');
-  return eprom.then(function(value) {
-    t.is(value, 'bar', 'external resetting works');
+  it('should be externally resettable', function() {
+    var eprom = Eprom.resolve('foo');
+    eprom.reset();
+    eprom.resolve('bar');
+    return eprom.then(function(value) {
+      assert.equal(value, 'bar');
+    });
   });
 });
