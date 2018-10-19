@@ -22,39 +22,44 @@ yarn add eprom
 
 ### API
 
-`eprom` mimics more usual [`Promises`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise) in every way. As such, it provides all class ([`resolve`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/resolve), [`reject`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/reject), [`all`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/all), [`race`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/race)) and instance ([`then`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/then), [`catch`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/catch), [`finally`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/finally)) methods these provide.
+`eprom`'s `EnhancedPromise` mimics more usual [`Promises`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise) in every way. As such, it provides all class ([`resolve`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/resolve), [`reject`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/reject), [`all`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/all), [`race`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/race)) and instance ([`then`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/then), [`catch`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/catch), [`finally`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/finally)) methods these provide.
 
-#### `eprom.resolve(value)`
+#### `enhancedPromise.resolve(value)`
 
-This method resolves an `eprom`'s inner `Promise`, triggering the execution of all `onFulfilled` handlers.
+This method resolves an `EnhancedPromise`'s inner `Promise`, triggering the execution of all `onFulfilled` handlers.
 
 ```javascript
-const eprom = new Eprom();
-eprom.then(value => console.log(value));
-eprom.resolve('foo');
+const enhancedPromise = new EnhancedPromise();
+enhancedPromise.then(value => console.log(value));
+enhancedPromise.resolve('foo');
 // logs 'foo'
 ```
 
-#### `eprom.reject(reason)`
+#### `enhancedPromise.reject(reason)`
 
-This method rejects an `eprom`'s inner `Promise`, triggering the execution of all `onRejected` handlers.
+This method rejects an `EnhancedPromise`'s inner `Promise`, triggering the execution of all `onRejected` handlers.
 
 ```javascript
-const eprom = new Eprom();
-eprom.catch(reason => console.err(reason));
-eprom.reject('bar');
+const enhancedPromise = new EnhancedPromise();
+enhancedPromise.catch(reason => console.err(reason));
+enhancedPromise.reject('bar');
 // logs 'bar'
 ```
 
-#### `eprom.reset()`
+#### `enhancedPromise.reset()`
 
-This method creates a fresh inner `Promise` and thus allows for the re-fulfillment of an `eprom`. A typical use case for this is handling repeat builds triggered by [Webpack](https://webpack.js.org) in [watch mode](https://webpack.js.org/configuration/watch/).
+This method creates a fresh inner `Promise` and thus allows for the re-fulfillment of an `EnhancedPromise`. A typical use case for this is handling repeat builds triggered by [Webpack](https://webpack.js.org) in [watch mode](https://webpack.js.org/configuration/watch/).
 
 ```javascript
-const eprom = new Eprom();
-eprom.resolve('foo');
-eprom.reset();
-eprom.then(value => console.log(value));
-eprom.resolve('bar');
+const enhancedPromise = new EnhancedPromise();
+
+enhancedPromise.then(value => console.log(value));
+enhancedPromise.resolve('foo');
+// logs 'foo'
+
+enhancedPromise.reset();
+
+enhancedPromise.then(value => console.log(value));
+enhancedPromise.resolve('bar');
 // logs 'bar'
 ```
