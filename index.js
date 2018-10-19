@@ -1,6 +1,6 @@
 'use strict';
 
-function Eprom(executor) {
+function EnhancedPromise(executor) {
   var resolve = function() {};
   var reject = function() {};
 
@@ -39,27 +39,27 @@ function Eprom(executor) {
   this.reset(executor);
 }
 
-Eprom.resolve = function(value) {
-  return new Eprom(function(resolve) {
+EnhancedPromise.resolve = function(value) {
+  return new EnhancedPromise(function(resolve) {
     resolve(value);
   });
 };
 
-Eprom.reject = function(reason) {
-  return new Eprom(function(resolve, reject) {
+EnhancedPromise.reject = function(reason) {
+  return new EnhancedPromise(function(resolve, reject) {
     reject(reason);
   });
 };
 
-Eprom.deferred = function() {
-  return new Eprom();
+EnhancedPromise.deferred = function() {
+  return new EnhancedPromise();
 };
 
-Eprom.all = function() {
+EnhancedPromise.all = function() {
   return Promise.all.apply(Promise, arguments);
 };
-Eprom.race = function() {
+EnhancedPromise.race = function() {
   return Promise.race.apply(Promise, arguments);
 };
 
-module.exports = Eprom;
+module.exports = EnhancedPromise;
