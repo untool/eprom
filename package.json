@@ -4,7 +4,7 @@
   "description": "JavaScript Async Primitive",
   "main": "index.js",
   "scripts": {
-    "test": "mocha",
+    "test": "mocha test.js",
     "lint": "eslint --ignore-path .gitignore '**/*.js'",
     "fmt": "prettier --write --ignore-path .gitignore '**/*.js'",
     "release": "standard-version",
